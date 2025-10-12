@@ -1,0 +1,32 @@
+services:
+  # Servicio de odoo
+  web:
+    container_name: odoo
+    image: odoo:18
+    depends_on:
+      - db
+    ports:
+      - "8069:8069" # Mapeo del puerto 8069 para acceder a Odoo
+    environment:
+      - HOST=db # Nombre del servicio de la base de datos
+      - USER=odoo_admin # Usuario de la base de datos
+      - PASSWORD=0d00_4dm1n_s3cr3t_p4ssw0rd # Contraseña del usuario de la base de datos
+    volumes:
+      - odoo-web-data:/var/lib/odoo # Volumen para la persistencia de datos de odoo
+      - ./config/odoo.conf:/etc/odoo/odoo.conf # Mapeo para la carpeta de configuración para el odoo.conf
+      - ./addons:/mnt/extra-addons # Mapeo para la carpeta de addons
+
+  # Servicio de postgreSQL
+  db:
+    container_name: postgres
+    image: postgres:13.22-alpine3.21
+    environment:
+      - POSTGRES_DB=postgres # Nombre de la base de datos que se creará al iniciar el contenedor
+      - POSTGRES_USER=odoo_admin # Usuario para que odoo se conecte a la base de datos
+      - POSTGRES_PASSWORD=0d00_4dm1n_s3cr3t_p4ssw0rd # Contraseña del usuario
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data # Volumen para la persistencia en la base de datos
+
+volumes:
+  odoo-web-data: # Datos de odoo
+  odoo-db-data: # Datos de postgreSQL
