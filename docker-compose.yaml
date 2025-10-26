@@ -12,9 +12,9 @@ services:
       - USER=odoo_admin # Usuario de la base de datos
       - PASSWORD=0d00_4dm1n_s3cr3t_p4ssw0rd # Contraseña del usuario de la base de datos
     volumes:
-      - odoo-web-data:/var/lib/odoo # Volumen para la persistencia de datos de odoo
-      - ./config/odoo.conf:/etc/odoo/odoo.conf # Mapeo para la carpeta de configuración para el odoo.conf
-      - ./addons:/mnt/extra-addons # Mapeo para la carpeta de addons
+      - odoo-web-data:/var/lib/odoo:Z # Volumen para la persistencia de datos de odoo
+      - ./config/odoo.conf:/etc/odoo/odoo.conf:Z # Mapeo para la carpeta de configuración para el odoo.conf
+      - ./addons:/mnt/extra-addons:Z # Mapeo para la carpeta de addons
 
   # Servicio de postgreSQL
   db:
@@ -25,7 +25,7 @@ services:
       - POSTGRES_USER=odoo_admin # Usuario para que odoo se conecte a la base de datos
       - POSTGRES_PASSWORD=0d00_4dm1n_s3cr3t_p4ssw0rd # Contraseña del usuario
     volumes:
-      - odoo-db-data:/var/lib/postgresql/data # Volumen para la persistencia en la base de datos
+      - odoo-db-data:/var/lib/postgresql/data:Z # Volumen para la persistencia en la base de datos
 
 volumes:
   odoo-web-data: # Datos de odoo
