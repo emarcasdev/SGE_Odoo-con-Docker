@@ -1,0 +1,388 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{float}
+\usepackage[margin=2.5cm]{geometry}
+% ===== Numeración de secciones =====
+\renewcommand\thesection{\arabic{section}}
+\makeatletter
+\makeatother
+\usepackage[hidelinks]{hyperref}
+% ===== Imagenes =====
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.png}
+\graphicspath{{images/}}
+% ===== Tablas =====
+\usepackage{array}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+% ===== Estilos para el recuadro bash para API =====
+\usepackage{xcolor}
+\usepackage{listings}
+\definecolor{codebg}{RGB}{245,245,245}
+\lstdefinestyle{bash}{
+  language=bash,
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  breaklines=true,
+  showstringspaces=false
+}
+
+\title{Práctica 2: Odoo como ERP
+}
+\author{Eder Martínez Castro}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+
+\section{Objetivo}
+\noindent El objetivo de esta práctica es conseguir implantar y configurar en nuestro Odoo los siguientes módulos
+\textbf{"Hola mundo"} y \textbf{"Lista de tareas"}, y para finalizar mejoraremos el módulo de \textbf{"Lista de tareas"}
+en el modelo y la vista.
+
+\vspace{1em}
+\noindent Con esta práctica se busca tener el primer contacto con la creación de módulos en Odoo para poder sacarle mucho
+más provecho y personalización a nuestro Odoo.
+
+
+
+\section{Activación del modo desarrollador}
+\noindent Para poder activar el modo desarrollador en nuestro Odoo lo que tendremos que hacer es lo siguiente, tendremos que hacer el
+siguiente comando \texttt{"docker compose up -d"} si no tenemos nuestro contenedor corriendo, cuando ya lo tengamos levantado
+lo que haremos será irnos a nuestro navegador favorito y poner la ruta en la que tenemos desplegado nuestro proyecto en mi caso
+\texttt{http://localhost:8069}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.20\linewidth]{modo-desarrollador/ir-ajustes.png}
+  \caption{Como ir a ajustes de Odoo}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Ya cuando estemos dentro de nuestro Odoo, nos dirigiremos a donde está el icono cuadrado en la cabecera morada, al hacer clic en este icono
+se nos abrirá una lista de opciones y seleccionaremos ajustes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=.85\linewidth]{modo-desarrollador/developer-mode.png}
+    \caption{Modo desarrollador sin activar}
+    \label{fig:interfaz}
+\end{figure}
+
+\noindent Ahora que ya estamos en ajustes, nos situaremos en la sección de \textbf{opciones generales} y haremos scroll hasta encontrar la
+sección de \textbf{herramientas de desarrollador} en clicaremos en la opción de \texttt{activar modo de desarrollador} y se nos actualizará automáticamente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.85\linewidth]{modo-desarrollador/active-developer-mode.png}
+  \caption{Modo desarrollador ya activado}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Como podemos ver en esta captura podemos ver que ya tenemos el modo desarrollador activo y que tenemos la opción de
+desactivarlo si quisiéramos.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.85\linewidth]{modo-desarrollador/cambios-developer.png}
+  \caption{Cambios al estar en el modo desarrollador}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Cuando tenemos el modo desarrollador activado el cambio más notable ya que se aprecia que ya no nos
+sale la descripción del módulo, si no que nos sale el como se llama la carpeta que aloja el módulo.
+
+
+
+\section{Implementación del Módulo (Hola mundo)}
+\noindent Ahora nos dirigimos a nuestro \textbf{IDE}, y abriremos nuestro proyecto donde tenemos nuestro \textbf{Odoo dockerizado}, ahora vamos a ver
+como crear nuestro primer módulo de una manera muy simple, ya que para este solo necesitaremos \textbf{crear estos 2 archivos}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.45\linewidth]{modulo-hola-mundo/estructura-modulo1.png}
+  \caption{Así quedaría la estructura mínima para crear nuestro módulo hola\_mundo}
+  \label{fig:interfaz}
+\end{figure}
+
+\clearpage
+\noindent Explicación de los \textbf{archivos del módulo hola\_mundo}:
+\begin{itemize}
+  \item \textbf{\_\_init\_\_.py}: En este archivo se indica que nuestro módulo se puede cargar en Odoo.
+  \item \textbf{\_\_manifest\_\_.py}: En este archivo tenemos la información básica de nuestro módulo para que Odoo la reconozca.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.65\linewidth]{modulo-hola-mundo/manifest-module1.png}
+  \caption{Contenido del archivo de \_\_manifest\_\_.py}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Solo necesitamos escribir una línea de código para poder mostrar nuestro módulo en Odoo obviamente no tendrá funcionalidad ninguna
+pero nos sirve para mostrar lo  mínimo que se necesita para crear un módulo y que se muestre en las aplicaciones de Odoo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-hola-mundo/barra-para-actualizar-lista.png}
+  \caption{Seleccionar actualizar lista de apliciones en el menú}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Para actualizar la lista de las aplicaciones de nuestro Odoo, iremos al menú y seleccionaremos la opción de \textbf{actualizar lista de aplicaciones}
+que como podemos apreciar es la tercera opción de nuestro menú.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.65\linewidth]{modulo-hola-mundo/actualizar-lista.png}
+  \caption{Actualizar la lista de apliciones para ver el nuevo módulo}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Al clicar en \textbf{actualizar lista de aplicaciones} nos aparecerá esta ventana emergente, donde seleccionaremos el botón que pone \textbf{Actualizar}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.95\linewidth]{modulo-hola-mundo/modulo-creado.png}
+  \caption{Módulo Ejemplo01-Hola mundo creado correctamente}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Después de haber actualizado, nos dirigiremos al buscador donde buscaremos el módulo \textbf{hola\_mundo}, y nos debería salir el módulo que acabamos de crear
+como se puede apreciar en esta imagen.
+
+
+
+\section{Implementación de Módulo (Lista de tareas)}
+\noindent Ahora vamos a empezar con la \textbf{creación de un módulo pero este con funcionalidad} donde veremos los pasos para
+poder crear un módulo sobre una lista de tareas sencilla, para gestionar las tareas que tengamos que hacer,
+
+
+\subsection{Crear la estructura de un módulo}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/crear_lista_tareas.png}
+  \caption{Comando para crear el módulo lista de tareas de Odoo}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Para poder crear nuestro módulo emplearemos el comando \textbf{scaffold} y para ello como estamos trabajando con Odoo desde \textbf{Docker} lo 
+primero que deberemos hacer es ejecutar los siguientes comandos.
+
+\vspace{1em}
+\noindent Comando para entrar en nuestro contenedor de docker
+\begin{lstlisting}[style=bash]
+  docker exec -it <CONTAINER> /bin/bash
+\end{lstlisting}
+  
+\vspace{1em}
+\noindent Comando para crear la estructura básica de un nuevo módulo en Odoo
+\begin{lstlisting}[style=bash]
+  odoo scaffold <MODULO_NAME> /mnt/extra-addons
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/permisos-lista_tareas.png}
+  \caption{Darle permisos al módulo}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Le vamos a \textbf{dar permisos a nuestro módulo} para poder trabajar más cómodamente con él, como por ejemplo permitirnos guardar los cambios que le vayamos
+haciendo a nuestro módulo.
+
+\clearpage
+\noindent Comando darle permisos a nuestro módulo
+\begin{lstlisting}[style=bash]
+  chmod 777 -R /mnt/extra-addons/<MODULO-NAME>
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.45\linewidth]{modulo-lista-tareas/comprobacion_lista_tareas.png}
+  \caption{Comprobación de la estructura de nuestro módulo de Odoo creado mediante el comando \textbf{scaffold}.}
+  \label{fig:interfaz}
+\end{figure}
+
+
+\subsection{Lógica de nuestro módulo}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/manifest.png}
+  \caption{Archivo \_\_manifest\_\_.xml}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Ahora pegaremos el archivo \texttt{\_\_manifest\_\_.xml} este archivo es que \textbf{define y registra tu módulo} de nuestro módulo en Odoo, aquí es
+importante el \texttt{'application': True} que nos permitira que nuestro mádulo salga en el filtro de aplicaciones además de otras configuraciones extra.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/views.png}
+  \caption{Archivo views.xml}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Ahora nos toca copiar el archivo \texttt{views.xml} que nos pasarón de ejemplo pero esto es para odoo:17 y tenemos que modificar un pequeño detalle
+ya no se utiliza \textbf{tree} para odoo:18 ahora se emplea \textbf{list}, con esta pequeña modificación ya lo arreglamos. Este archivo es el encargado de
+\textbf{configurar la interfaz} de nuestro módulo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/models.png}
+  \caption{Archivo models.py}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Por último pegaremos el archivo \texttt{models.xml} este archivo es el encargado de definir el \textbf{modelo de datos} de nuestro módulo de Odoo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/reiniciamos-odoo.png}
+  \caption{Reiniciar odoo para aplicar los cambios}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Cuando ya hayamos modificado los dos archivos anteriores, lo que vamos a hacer es 
+ejecutar el siguiente comando para reiniciar nuestro contenedor y asegurarnos de tenerlo actualizado
+y así evitarnos posibles problemas.
+
+\vspace{1em}
+\noindent Comando para reiniciar nuestro contenedor y aplicar los cambios
+\begin{lstlisting}[style=bash]
+  docker restart <CONTAINER>
+\end{lstlisting}
+
+
+\subsection{Comprobación del módulo creado}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/comprobacion-en-odoo-lista_tareas.png}
+  \caption{Módulo lista\_tareas creado correctamente}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Después de haber modificado los archivos anteriores y reiniciado nuestro contenedor lo que vamos a hacer 
+es lo siguiente, nos dirigiremos a las aplicaciones de Odoo y buscaremos el módulo que acabmos de crear, así que buscaremos
+\textbf{lista\_tareas} y procederemos a activar esta aplicación.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/modulo-activo.png}
+  \caption{Módulo ya activado}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Como podemos ver ya tenemos nuestro módulo \textbf{lista\_tareas} ya activo ya listo para usarlo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.3\linewidth]{modulo-lista-tareas/ir-al-modulo.png}
+  \caption{Entraremos en la aplicación de listado de tareas}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Como ya tenemos activo nuestro módulo ahora nos dirigiremos al icono de aplicaciones y 
+seleccionaremos nuestra aplicación \textbf{Listado de tareas} y pasaremos al siguiente apartado donde probaremos nuestro módulo.
+
+
+\subsection{Funcionamiento del módulo}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/comprobar-funcionamiento-1.png}
+  \caption{Nuestro módulo \textbf{listado de tareas} sin ninguna tarea porque todavía no añadimos ninguna todavía.}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Al entrar en nuestra aplicación \textbf{Listado de tareas} podemos ver que es una interfaz bastante simple y sin color, que cuenta con
+los siguientes campos para nuestras tareas: tarea, prioridad, urgente y realizada.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/comprobar-funcionamiento-2.png}
+  \caption{Agregamos una tarea a nuestro módulo \textbf{listado de tareas} en este caso una no urgente.}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Al crear una nueva tarea \textbf{dependiendo del valor} ingresado en el campo prioridad \textbf{se marcará como urgente o no}, en este caso le pusimos
+de valor 8 y como no es >10 pues no se marca como urgente, luego también podemos clicar el checkbox para marcarla como completada o no.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modulo-lista-tareas/comprobar-funcionamiento-3.png}
+  \caption{Agregamos otra tarea a nuestro módulo \textbf{listado de tareas} como prueba adicional.}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent En esta nueva tarea podemos ver como le di el valor de 20 y \textbf{ahora nos sale marcado el valor de urgente}, además para probar también la marqué como
+realizada para mostrar como se vería.
+
+\vspace{1em}
+\noindent Como se puede apreciar \textbf{nuestro módulo cumple su función y funciona correctamente}, pero a continuación lo modificaremos para que por lo menos
+se vea más bonito y le agregaremos funcionalidad que realmente pueden ser muy útiles.
+
+
+
+\section{Mejoras en el Módulo de (Listea de tareas)}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.9\linewidth]{modificacion-lista-tareas/views.png}
+  \caption{Modificación del archivo views.xml}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Ahora vamos a explicar los cambios realizados en \texttt{models.py}, agregamos los \textbf{nuevos campos} para: descripción, fecha\_limite,
+prioridad\_nivel y estado. Y se agregaron \textbf{badges} para darle colores a prioridad\_nivel y estado.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.9\linewidth]{modificacion-lista-tareas/models.png}
+  \caption{Modificación del archivo models.py}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Ahora vamos a explicar los cambios realizados en \texttt{models.py}, lo primero fue agregar los \textbf{nuevos campos}: descripción, fecha\_limite,
+prioridad\_nivel y estado. \textbf{Se eliminó el campo urgente} y se reemplazó  con el campo prioridad que ahora detecta tareas de prioridad: baja, media y urgente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modificacion-lista-tareas/actualizar-modulo.png}
+  \caption{Actualizar nuestro módulo}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Para poder obtener los cambios que hicimos para nuestro módulo, buscaremos nuestro \textbf{módulo lista\_tareas} y haremos click
+en los tres puntos y seleccionaremos la opción de \textbf{actualizar}. Si esto no funcionará te recomiendo que vuelvas a reiniciar tu contenedor
+con el comando: \texttt{docker restart <CONTAINER>}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{modificacion-lista-tareas/resultado.png}
+  \caption{Resultado de nuestras modificaciones de nuestro módulo de Odoo}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Así nos quedó nuestro módulo ya modificado, donde podemos ver que nos quedó con estos campos para gestionar nuestras tareas:
+\begin{itemize}
+  \item \textbf{Tarea} para el nombre de la tarea
+  \item \textbf{Descripción} de nuestra tarea
+  \item \textbf{Fecha Límite} de la tareas
+  \item La \textbf{prioridad} en la que debemos hacer esta tarea (Baja, Media y Urgente)
+  \item Y el \textbf{estado} en la que se encuentra la tarea (Pendiente, En curso y Realizada)
+\end{itemize}
+
+
+\section{Conclusión}
+\noindent En esta práctica hemos \textbf{aprendido} a cómo \textbf{crear y configurar nuestros módulos en Odoo desde cero}, empezando desde un muy simple a otro en el que
+usamos \texttt{\_\_manifest\_\_.py}, \texttt{models.py} y \texttt{views.xml} para crear un módulo funcional de gestion de tareas.
+
+
+\end{document}
