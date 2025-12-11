@@ -1,0 +1,82 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[spanish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{float}
+\usepackage[margin=2.5cm]{geometry}
+% ===== Numeración de secciones =====
+\renewcommand\thesection{\arabic{section}}
+\makeatletter
+\makeatother
+\usepackage[hidelinks]{hyperref}
+% ===== Imagenes =====
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.png}
+\graphicspath{{images/}}
+% ===== Tablas =====
+\usepackage{array}
+\usepackage{tabularx}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+% ===== Estilos para el recuadro bash para API =====
+\usepackage{xcolor}
+\usepackage{listings}
+\definecolor{codebg}{RGB}{245,245,245}
+\lstdefinestyle{bash}{
+  language=bash,
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  breaklines=true,
+  showstringspaces=false
+}
+
+\title{Práctica 4: Módulos Odoo Modelo y Vista
+}
+\author{Eder Martínez Castro}
+\date{\today}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+
+\section{Introducción}
+\noindent El objetivo de esta práctica es seguir trabajando con el modelo y la vista de los módulos de Odoo, para ello
+tendremos que implementar cuatro módulos, \textbf{Lista de tareas}, \textbf{Biblioteca de cómics}, \textbf{Pacientes y médicos}, \textbf{Ciclos formativos}.
+
+\vspace{1em}
+\noindent Antes de proceder a empezar con la práctica se nos recomienda revisar los ejemplos del 01 al 06 que tenemos en el siguiente 
+repositorio \href{https://github.com/sergarb1/OdooModulosEjemplos.git}{github.com/sergarb1/OdooModulosEjemplos.git}.
+
+\vspace{0.5em}
+\noindent Para ello deberemos clonarlo en nuetro equipo utilizando el siguiete comando:
+\begin{lstlisting}[style=bash]
+  git clone https://github.com/sergarb1/OdooModulosEjemplos.git
+\end{lstlisting}
+
+\vspace{0.5em}
+\noindent Cuando ya lo tengamos clonado lo que haremos es copiar los 6 ejemplos y pegarlos en nuestro proyecto para poder probarlos y revisarlos.
+Y nos debería quedar nuestra carpeta con nuestro módulos tal que así:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{PREVIO/MODULOS-EJEMPLO.png}
+  \caption{Carpeta addons, que contiene nuestros módulos de odoo donde podemos ver los módulos de ejemplo del repositorio para probarlos}
+  \label{fig:interfaz}
+\end{figure}
+
+\noindent Entender estos módulos de ejemplo nos ayudará mucho para poder hacer la actividad 1 de lista de tareas y la 2 de la biblioteca de comics. 
+
+\section{Actividad 01 - Lista de tareas}
+
+\section{Actividad 02 - Biblioteca de cómics}
+
+\section{Actividad 03 - Pacientes y médicos}
+
+\section{Actividad 04 - Ciclos formativos}
+
+\section{Conclusión}
+
+\end{document}
