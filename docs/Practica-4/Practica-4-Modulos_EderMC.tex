@@ -63,13 +63,174 @@ Y nos debería quedar nuestra carpeta con nuestro módulos tal que así:
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\linewidth]{PREVIO/MODULOS-EJEMPLO.png}
-  \caption{Carpeta addons, que contiene nuestros módulos de odoo donde podemos ver los módulos de ejemplo del repositorio para probarlos}
-  \label{fig:interfaz}
+  \caption{Carpeta addons, que contiene nuestros módulos de odoo donde podemos ver los módulos de ejemplo del repositorio para probarlos.}
 \end{figure}
 
 \noindent Entender estos módulos de ejemplo nos ayudará mucho para poder hacer la actividad 1 de lista de tareas y la 2 de la biblioteca de comics. 
 
+\clearpage{}
 \section{Actividad 01 - Lista de tareas}
+
+\subsection{Objetivo}
+\noindent Para este módulo se nos pide coger el código de nuestro módulo de ejemplo 2 de la lista de tareas, para modificarlo e implementar en el que
+podamos verlo además del \textbf{modo lista}, poder verlo en \textbf{modo kanban} y \textbf{calendario}.
+
+\subsection{Agregar vista Kanban}
+\noindent Para poder implementar la vista estilo kanban solo necesitamos modificar el archivo \texttt{views.xml} que es nuestra vista para poder implementar
+este nuevo modo de visualización.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-1/1.1-AGREGAR-KANBAN.png}
+  \caption{Nuevo fragmento de código para mostrar las tareas en formato kanban.}
+\end{figure}
+
+\noindent En este fragmento de código implementamos la nueva vista tipo kanban, que nos mostrará nuestras tareas en tarjetas individuales con los datos de la tarea.
+
+\clearpage{}
+\noindent Estrucutura principal de la vista Kanban:
+\begin{itemize}
+    \item \texttt{<kanban>}: muestra la vista en formato kanban como bien indica el nombre
+    \item \texttt{<field>}: declaramos los campos que tendra la vista.
+    \item \texttt{<templates>}: contiene la plantilla \texttt{kanban-box} donde creamos la tarjeta de la tarea del kanban:
+    \begin{itemize}
+        \item La tarjeta es interactiva al usar \texttt{oe\_kanban\_global\_click} si hacemos click en ella nos abrira el formulario para poder editarla.
+        \item Se muestran los datos de la tarea: nombre, prioridad, urgencia y si está o no realizada.
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-1/1.1-AGREGAR-ACTION.png}
+  \caption{En el bloque para las acciones de nuestro módulo debemos agregar como se ve en pantalla en el \texttt{view\_mode} el nuevo tipo kanban.}
+\end{figure}
+
+\noindent En esta modificación lo que hicimos fue agregar la vista kanban al \texttt{view\_mode}, porque odoo utiliza este parámetro para determinar que vistas estarán disponibles en la interfaz de nuestro módulo.
+
+\clearpage{}
+
+\subsection{Comprobación de la vista Kanban}
+\noindent A continuación vamos a enseñar a través de capturas de pantalla el correcto funcionamiento de nuestra vista kanban.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-1/1.1-VISTA-LISTA.png}
+  \caption{En esta captura podemos ver la vista modo lista de nuestro módulo de listas de tareas que es la primera que nos saldrá cuando lo abramos.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\linewidth]{EJERCICIO-1/1.1-CAMBIAR-A-KANBAN.png}
+  \caption{Como se ve en esta captura para cambiar de vista nos iremos a estos iconos y pulsaremos en el que pone kanban para poder ver nuestras tareas en este formato}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-1/1.1-VISTA-KANBAN.png}
+  \caption{En esta captura podemos ver la vista modo kanban de nuestro módulo de listas de tareas.}
+\end{figure}
+
+\noindent Aquí podemos ver nuestras tareas en tarjetas con todos sus campos relevantes, lo que muestra que tenemos la vista del kanban bien implementada.
+
+\subsection{Agregar vista Calendar}
+\noindent Para poder implementar la vista estilo calendar deberemos modificar el archivo \texttt{views.xml} que es nuestra vista y el archivo \texttt{models.py} que es nuestro modelo para poder implementar
+este nuevo modo de visualización.
+
+\vspace{1em}
+
+\noindent Primero vamos a empezar modificando nuestro \texttt{models.py}:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-1/1.2-AGREGAR-CAMPOS-AL-MODEL.png}
+  \caption{En esta captura podemos ver como hemos agregado a nuestra modelo los campos \texttt{fecha\_inicio} y \texttt{fecha\_fin} para poder marcar el comienzo de una tarea y su final.}
+\end{figure}
+
+\noindent Para que nuestra vista calendario pueda mostrar nuestras tareas, necesitamos crear dos nuevos campos para poder marcar la fecha de inicio de la tarea y la fecha de fin de esta.
+
+\begin{itemize}
+    \item \texttt{fecha\_inicio}: fecha en la que esta tarea empieza.
+    \item \texttt{fecha\_fin}: fecha límite de la tarea.
+\end{itemize}
+
+\vspace{1em}
+
+\noindent Ahora vamos a realizar las siguientes modificaciones en nuestro \texttt{views.xml}:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-1/1.2-AGREGAR-CALENDAR.png}
+  \caption{Nuevo fragmento de código para mostrar las tareas en formato calendar.}
+\end{figure}
+
+\noindent En este fragmento de código implementamos la nueva vista tipo calendar, que nos mostrará un calendario con nuestras tareas desde el dia que empiezan hasta el dia que deben estar finalizadas.
+
+\vspace{0.5em}
+
+\noindent Estrucutura principal de la vista calendar:
+\begin{itemize}
+    \item \texttt{<calendar>}: muestra la vista en formato calendario como bien indica el nombre, esta recibe dos atributos:
+    \begin{itemize}
+        \item \texttt{date\_start="fecha\_inicio"}: indicamos el día de comienzo de la tarea.
+        \item \texttt{date\_start="fecha\_fin"}: indicamos el día final de la tarea.
+    \end{itemize}
+    \item \texttt{<field>}: declaramos los campos que tendra la vista.
+\end{itemize}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-1/1.2-AGREGAR-ACTION.png}
+  \caption{En el bloque para las acciones de nuestro módulo debemos agregar como se ve en pantalla en el \texttt{view\_mode} el nuevo tipo calendar.}
+\end{figure}
+
+\noindent En esta modificación lo que hicimos fue agregar la vista calendar al \texttt{view\_mode}, como ya explicamos anteriormente esto es porque odoo utiliza este parámetro para determinar que vistas estarán disponibles en la interfaz de nuestro módulo.
+
+\clearpage{}
+
+\noindent Ahora que ya hemos implementado nuestra vista kanban en el \texttt{views.xml}, pero todavía nos falta hacer unas modificaciones en los bloques
+del formulario para poder agregar la fecha de inicio y fin a las tareas cuando las creemos o editemos, además de agregar estos nuevos campos de fecha a
+las vistas de lista y kanban:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-1/1.2-ACTULIZAR-FORM.png}
+  \caption{Actualizamos el bloque de formulario para tener un nuevo bloque para agregar las fechas de inicio y fin de la tarea para cuando agregemos una tarea o la editemos.}
+\end{figure}
+
+\noindent En el formulario, agregamos un nuevo grupo para las fechas de la tarea donde tenemos los campos de fecha de inicio y fecha final de la tarea, para cuando creemos y editemos una tarea podamos agregar las fechas.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-1/1.2-ACTUALIZAR-LIST.png}
+  \caption{Actualizamos el bloque de la vista list para mostrar los nuevos campos de fechas de inicio y fin de la tarea.}
+\end{figure}
+
+\noindent En la vista de lista, agregamos los nuevos campos de fecha de inicio y fecha de final de la tarea como nuevas columnas.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-1/1.2-ACTUALIZAR-KANBAN.png}
+  \caption{Actualizamos el bloque de la vista kanban para mostrar los nuevos campos de fechas de inicio y fin de la tarea.}
+\end{figure}
+
+\noindent En la vista de kanban, agregamos los nuevos campos de fecha de inicio y fecha de final de la tarea en la tarjeta del kanban.
+
+\subsection{Comprobación de la vista Calendar}
+\noindent A continuación vamos a enseñar a través de capturas de pantalla el correcto funcionamiento de la vista calendar que acabamos de implementar.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.3\linewidth]{EJERCICIO-1/1.2-CAMBIAR-A-CALENDAR.png}
+  \caption{Como se pueder ver en esta captura para poder cambiar de vista nos iremos a estos iconos y pulsaremos en el que pone calendario.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-1/1.2-VISTA-CALENDAR.png}
+  \caption{En esta captura podemos ver la vista modo calendar de nuestro módulo de listas de tareas.}
+\end{figure}
+
+\noindent Aquí podemos ver como la tarea que creamos de "Realizar un pedido para un cliente" empieza el jueves 4 y termina el  viernes 18 de diciembre de 2025, lo que muestra que tenemos la vista del calendario bien implementada.
 
 \section{Actividad 02 - Biblioteca de cómics}
 

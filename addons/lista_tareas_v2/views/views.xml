@@ -11,15 +11,17 @@
     -->
     <record model="ir.actions.act_window" id="action_lista_tareas">
       <!-- Título visible de la ventana -->
-      <field name="name">Listado de tareas</field>
+      <field name="name">Listado de tareas (Actividad 1)</field>
 
       <!-- Modelo al que se refiere la acción -->
       <field name="res_model">lista_tareas.lista</field>
 
       <!-- Tipo de vistas que se mostrarán:
            list → vista en tabla
-           form → vista en formulario -->
-      <field name="view_mode">list,form</field>
+           form → vista en formulario 
+           kanban -> vista kanban
+           calendar -> vista calendario -->
+      <field name="view_mode">list,form,kanban,calendar</field>
     </record>
 
     <!-- ==================================================
@@ -51,10 +53,8 @@
     <record id="view_lista_tareas_list" model="ir.ui.view">
       <!-- Nombre interno de la vista -->
       <field name="name">lista.tareas.list</field>
-
       <!-- Modelo al que pertenece esta vista -->
       <field name="model">lista_tareas.lista</field>
-
       <!-- Estructura XML de la vista -->
       <field name="arch" type="xml">
         <!-- Vista tipo list (reemplaza a <tree> en Odoo 17+) -->
@@ -64,6 +64,8 @@
           <field name="prioridad"/>     <!-- Nivel de prioridad -->
           <field name="urgente"/>       <!-- Calculado automáticamente -->
           <field name="realizada"/>     <!-- Estado de finalización -->
+          <field name="fecha_inicio"/>  <!-- Fecha de inicio -->
+          <field name="fecha_fin"/>     <!-- Fecha de fin -->
         </list>
       </field>
     </record>
@@ -94,8 +96,71 @@
               <!-- Campo calculado: no editable. Ya no usamos attrs (Odoo 17+) -->
               <field name="urgente" readonly="1"/>
             </group>
+
+            <!-- Tercer bloque de campos para las fechas de la tarea -->
+            <group string="Fechas de la tarea">
+              <field name="fecha_inicio"/>
+              <field name="fecha_fin"/>
+            </group>
+
           </sheet>
         </form>
+      </field>
+    </record>
+
+    <!-- ==================================================
+         VISTA DE KANBAN
+         ================================================== -->
+    <record id="view_lista_tareas_kanban" model="ir.ui.view">
+      <!-- Nombre interno de la vista -->
+      <field name="name">lista.tareas.kanban</field>
+      <!-- Modelo al que pertenece esta vista -->
+      <field name="model">lista_tareas.lista</field>
+      <!-- Estructura XML de la vista -->
+      <field name="arch" type="xml">
+        <!-- Vista tipo kanban -->
+        <kanban default_order_by="realizada">
+          <field name="tarea"/>
+          <field name="prioridad"/>
+          <field name="urgente"/>
+          <field name="realizada"/>
+
+          <templates>
+            <!-- Tarjeta de las tareas de kanban -->
+            <t t-name="kanban-box">
+              <div class="oe_kanban_card oe_kanban_global_click">
+                <strong><field name="tarea"/></strong>
+                <div>
+                  <div>Prioridad: <field name="prioridad"/></div>
+                  <div>Urgente: <field name="urgente"/></div>
+                  <div>Realizada: <field name="realizada"/></div>
+                  <div>Fecha de inicio: <field name="fecha_inicio"/></div>
+                  <div>Fecha de fin: <field name="fecha_fin"/></div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+    <!-- ==================================================
+         VISTA DE CALENDARIO
+         ================================================== -->
+    <record id="view_lista_tareas_calendar" model="ir.ui.view">
+      <!-- Nombre interno de la vista -->
+      <field name="name">lista.tareas.calendar</field>
+      <!-- Modelo al que pertenece esta vista -->
+      <field name="model">lista_tareas.lista</field>
+      <!-- Estructura XML de la vista -->
+      <field name="arch" type="xml">
+        <!-- Vista tipo calendar -->
+        <calendar date_start="fecha_inicio" date_stop="fecha_fin">
+          <field name="tarea"/>
+          <field name="prioridad"/>
+          <field name="urgente"/>
+          <field name="realizada"/>
+        </calendar>
       </field>
     </record>
 

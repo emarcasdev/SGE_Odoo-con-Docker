@@ -32,6 +32,10 @@ class ListaTareas(models.Model):  # Buenas prácticas: nombres de clase en Pasca
     # Campo booleano normal. Será marcado si la tarea ya se realizó.
     realizada = fields.Boolean(string="Realizada")
 
+    # Campos para la fecha de inicio y fin de la tarea
+    fecha_inicio = fields.Date(string="Fecha inicio")
+    fecha_fin = fields.Date(string="Fecha fin")
+
     # -------------------------------
     # MÉTODO COMPUTADO
     # -------------------------------

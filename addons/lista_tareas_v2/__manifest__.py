@@ -2,7 +2,7 @@
 
 {
     # Nombre del módulo que aparecerá en la vista de aplicaciones de Odoo
-    'name': "Lista de tareas",
+    'name': "Lista de tareas V2",
 
     # Descripción corta que se mostrará debajo del nombre
     'summary': "Módulo educativo para crear una lista de tareas simples",
@@ -13,8 +13,8 @@
         Ideal como primer proyecto de desarrollo en Odoo.
     """,
 
-    # Autor del módulo (puede ser un nombre real, grupo de trabajo o entidad educativa)
-    'author': "Tu Nombre",
+    # Autor del módulo
+    'author': "Eder Martínez",
 
     # Sitio web asociado (puede ser un portafolio, escuela o GitHub del proyecto)
     'website': "https://tusitio.com",
