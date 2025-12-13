@@ -32,7 +32,7 @@
     -->
 
     <!-- Menú raíz que aparece en la barra superior -->
-    <menuitem id="lista_tareas_menu_root" name="Listado de tareas" sequence="10"/>
+    <menuitem id="lista_tareas_menu_root" name="Listado de tareas (Actividad 1)" sequence="10"/>
 
     <!-- Submenú dentro del menú raíz.
          Permite agrupar más opciones si lo necesitas en el futuro. -->

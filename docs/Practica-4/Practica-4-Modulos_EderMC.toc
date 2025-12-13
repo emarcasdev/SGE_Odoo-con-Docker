@@ -1,0 +1,16 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción}{2}{section.0.1}%
+\contentsline {section}{\numberline {2}Actividad 01 - Lista de tareas}{3}{section.0.2}%
+\contentsline {subsection}{\numberline {2.1}Objetivo}{3}{subsection.0.2.1}%
+\contentsline {subsection}{\numberline {2.2}Agregar vista Kanban}{3}{subsection.0.2.2}%
+\contentsline {subsection}{\numberline {2.3}Comprobación de la vista Kanban}{5}{subsection.0.2.3}%
+\contentsline {subsection}{\numberline {2.4}Agregar vista Calendar}{5}{subsection.0.2.4}%
+\contentsline {subsection}{\numberline {2.5}Comprobación de la vista Calendar}{10}{subsection.0.2.5}%
+\contentsline {section}{\numberline {3}Actividad 02 - Biblioteca de cómics}{11}{section.0.3}%
+\contentsline {subsection}{\numberline {3.1}Objetivo}{11}{subsection.0.3.1}%
+\contentsline {subsection}{\numberline {3.2}Modelo Socios}{11}{subsection.0.3.2}%
+\contentsline {subsection}{\numberline {3.3}Modelo Ejemplares}{14}{subsection.0.3.3}%
+\contentsline {subsection}{\numberline {3.4}Comprobación de su funcionamiento}{18}{subsection.0.3.4}%
+\contentsline {section}{\numberline {4}Actividad 03 - Pacientes y médicos}{21}{section.0.4}%
+\contentsline {section}{\numberline {5}Actividad 04 - Ciclos formativos}{21}{section.0.5}%
+\contentsline {section}{\numberline {6}Conclusión}{21}{section.0.6}%

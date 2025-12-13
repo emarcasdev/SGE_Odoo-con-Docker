@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================================================
+            ACCIÓN PRINCIPAL DEL MÓDULO
+         ================================================== -->
+    <record id="biblioteca_socio_action" model="ir.actions.act_window">
+        <field name="name">Socios</field>
+        <field name="res_model">biblioteca.socio</field>
+        <!-- Mostrar los tipos de vista de lista y formulario -->
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================================================
+            MENÚ DEL MÓDULO
+         ================================================== -->
+    <menuitem name="Socios" id="biblioteca_socio_menu" parent="biblioteca_base_menu" action="biblioteca_socio_action"/>
+
+    <!-- ==================================================
+            VISTA DE FORMULARIO (form)
+         =================================================== -->
+    <record id="biblioteca_socio_form" model="ir.ui.view">
+        <field name="name">biblioteca.socio.form</field>
+        <field name="model">biblioteca.socio</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="id_socio"/>
+                    <field name="nombre"/>
+                    <field name="apellido"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- ==================================================
+            VISTA DE LISTA (list)
+        ================================================== -->
+    <record id="biblioteca_socio_list" model="ir.ui.view">
+        <field name="name">biblioteca.socio.list</field>
+        <field name="model">biblioteca.socio</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="id_socio"/>
+                <field name="nombre"/>
+                <field name="apellido"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

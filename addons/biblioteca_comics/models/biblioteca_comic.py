@@ -115,5 +115,3 @@ class BibliotecaComic(models.Model):
             if record.fecha_publicacion and record.fecha_publicacion > fields.Date.today():
                 #Si procede, lanzamos una excepcion
                 raise models.ValidationError('La fecha de lanzamiento debe ser anterior a la actual')
-
-

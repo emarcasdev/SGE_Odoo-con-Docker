@@ -3,7 +3,7 @@
 
     <!-- Definimos como mostramos la vista en el modelo -->
     <record id='biblioteca_comic_action' model='ir.actions.act_window'>
-        <field name="name">Biblioteca de Comics Simple</field>
+        <field name="name">Biblioteca de Comics (Actividad 2)</field>
         <!-- Indicamos a que modelo aplica -->
         <field name="res_model">biblioteca.comic</field>
         <!-- Indicamos que los comics pueden verse en tree para el listado,
@@ -12,7 +12,7 @@
     </record>
 
     <!-- Simple menu item, sin más utilidad que la didáctica -->
-    <menuitem name="Mi biblioteca (Simple)" id="biblioteca_base_menu" />
+    <menuitem name="Biblioteca cómics (Actividad 2)" id="biblioteca_base_menu" />
     <menuitem name="Comics" id="biblioteca_comic_menu" parent="biblioteca_base_menu" action="biblioteca_comic_action"/>
 
     <!-- Definición de la Vista formulario -->

@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Biblioteca Comics Simple",  # Titulo del módulo
-    'summary': "Gestionar comics :) (Version simple)",  # Resumen de la funcionaliadad
+    'name': "Biblioteca de Comics",  # Titulo del módulo
+    'summary': "Gestionar comics",  # Resumen de la funcionaliadad
     'description': """
-Gestor de bibliotecas (Version Simple)
-==============
+        Gestor de bibliotecas
+    ==============
     """,  
 
     #Indicamos que es una aplicación
     'application': True,
-    'author': "Sergi García",
-    'website': "http://apuntesfpinformatica.es",
+    'author': "Eder Martínez",
+    'website': "https://tusitio.com",
     'category': 'Tools',
     'version': '0.1',
     'depends': ['base'],
@@ -23,8 +23,10 @@ Gestor de bibliotecas (Version Simple)
         #Y en www.odoo.yenthevg.com/creating-security-groups-odoo/ 
         'security/groups.xml',
         'security/ir.model.access.csv',
-        #Cargamos la vista de la biblioteca de comics
-        'views/biblioteca_comic.xml'
+        #Cargamos la vista de la biblioteca de comics y socios
+        'views/biblioteca_comic.xml',
+        'views/biblioteca_socio.xml',
+        'views/biblioteca_ejemplar.xml'
     ],
     # Fichero con data de demo si se inicializa la base de datos con "demo data" (No incluido en ejemplo)
     # 'demo': [

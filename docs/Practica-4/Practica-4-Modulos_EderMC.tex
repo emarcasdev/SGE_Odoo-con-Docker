@@ -63,7 +63,7 @@ Y nos debería quedar nuestra carpeta con nuestro módulos tal que así:
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\linewidth]{PREVIO/MODULOS-EJEMPLO.png}
-  \caption{Carpeta addons, que contiene nuestros módulos de odoo donde podemos ver los módulos de ejemplo del repositorio para probarlos.}
+  \caption{Carpeta addons, que contiene nuestros módulos de Odoo donde podemos ver los módulos de ejemplo del repositorio para probarlos.}
 \end{figure}
 
 \noindent Entender estos módulos de ejemplo nos ayudará mucho para poder hacer la actividad 1 de lista de tareas y la 2 de la biblioteca de comics. 
@@ -72,7 +72,7 @@ Y nos debería quedar nuestra carpeta con nuestro módulos tal que así:
 \section{Actividad 01 - Lista de tareas}
 
 \subsection{Objetivo}
-\noindent Para este módulo se nos pide coger el código de nuestro módulo de ejemplo 2 de la lista de tareas, para modificarlo e implementar en el que
+\noindent Para esta actividad se nos pide coger el código de nuestro módulo de ejemplo 2 de la lista de tareas, para modificarlo e implementar en el que
 podamos verlo además del \textbf{modo lista}, poder verlo en \textbf{modo kanban} y \textbf{calendario}.
 
 \subsection{Agregar vista Kanban}
@@ -105,7 +105,7 @@ este nuevo modo de visualización.
   \caption{En el bloque para las acciones de nuestro módulo debemos agregar como se ve en pantalla en el \texttt{view\_mode} el nuevo tipo kanban.}
 \end{figure}
 
-\noindent En esta modificación lo que hicimos fue agregar la vista kanban al \texttt{view\_mode}, porque odoo utiliza este parámetro para determinar que vistas estarán disponibles en la interfaz de nuestro módulo.
+\noindent En esta modificación lo que hicimos fue agregar la vista kanban al \texttt{view\_mode}, porque Odoo utiliza este parámetro para determinar que vistas estarán disponibles en la interfaz de nuestro módulo.
 
 \clearpage{}
 
@@ -183,7 +183,7 @@ este nuevo modo de visualización.
   \caption{En el bloque para las acciones de nuestro módulo debemos agregar como se ve en pantalla en el \texttt{view\_mode} el nuevo tipo calendar.}
 \end{figure}
 
-\noindent En esta modificación lo que hicimos fue agregar la vista calendar al \texttt{view\_mode}, como ya explicamos anteriormente esto es porque odoo utiliza este parámetro para determinar que vistas estarán disponibles en la interfaz de nuestro módulo.
+\noindent En esta modificación lo que hicimos fue agregar la vista calendar al \texttt{view\_mode}, como ya explicamos anteriormente esto es porque Odoo utiliza este parámetro para determinar que vistas estarán disponibles en la interfaz de nuestro módulo.
 
 \clearpage{}
 
@@ -230,9 +230,230 @@ las vistas de lista y kanban:
   \caption{En esta captura podemos ver la vista modo calendar de nuestro módulo de listas de tareas.}
 \end{figure}
 
-\noindent Aquí podemos ver como la tarea que creamos de "Realizar un pedido para un cliente" empieza el jueves 4 y termina el  viernes 18 de diciembre de 2025, lo que muestra que tenemos la vista del calendario bien implementada.
+\noindent Aquí podemos ver como la tarea que creamos de \textbf{realizar un pedido para un cliente}, empieza el jueves 4 y termina el  viernes 18 de diciembre de 2025, lo que muestra que tenemos la vista del calendario bien implementada.
 
 \section{Actividad 02 - Biblioteca de cómics}
+
+\subsection{Objetivo}
+\noindent Para esta actividad se nos pide ampliar el módulo del ejemplo 3 de la biblioteca de cómics simple para agregar la gestión de socios
+y la gestión de ejemplares de préstamo. Para ello crearemos nuevos modelos que nos permiten almacenar los datos de los socios y de los ejemplares,
+así como poder registrar los préstamos indicando el socio, la fecha de inicio y la fecha de devolución, aplicando las restricciones indicadas a las fechas.
+
+\subsection{Modelo Socios}
+\noindent A continuación vamos a crear el modelo de socios para nuesto módulo, para ello tendremos que crear la vista y el modelo además de realizar unas modificaciones para emplearlo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.1-AGREGAR-MODELO-SOCIO.png}
+  \caption{Captura del archivo \texttt{biblioteca\_socio.py} donde tenemos el modelo para gestionar socios.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{biblioteca\_socio.py} y definimos el modelo "biblioteca.socio", que se encargará de gestionar
+los socios de la biblioteca de cómics. Cada socio tiene un identificador único, además de su nombre y apellido.
+
+\vspace{0.5em}
+
+\noindent Los atributos principales del modelo son:
+
+\begin{itemize}
+  \item id\_socio: identificador único para cada socio.
+  \item nombre: nombre del socio.
+  \item apellido: apellido del socio. 
+\end{itemize}
+
+\noindent Además, usamos una restricción SQL para asegurar que el \texttt{id\_socio} sea único.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.1-IMPORTAR-MODELO.png}
+  \caption{Captura de que importamos el nuevo modelo socio en \texttt{models/\_\_init\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro modelo de socios al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}
+como ya teniamos el del modelo de cómic.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.1-AGREGAR-VISTA-SOCIO.png}
+  \caption{Captura del archivo \texttt{biblioteca\_socio.xml} donde tenemos definida la vista para socios.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{biblioteca\_socio.xml} donde creamos la vista \texttt{socio} para poder gestionar los socios desde una interfaz donde tenemos lo siguiente:
+
+\begin{itemize}
+  \item \textbf{Vista formulario:} Esto nos permite tener un formulario donde podremos crear o editar la información de los socios.
+  \item \textbf{Vista lista:} Esto nos muestra tados los socios en un listado formato tabla con los campos: identificador, nombre y apellido.
+\end{itemize}
+
+\noindent También agregamos la acción y el menú correspondientes para poder acceder al listado de socios desde la interfaz.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.1-AGREGAR-VISTA-MANIFEST.png}
+  \caption{Captura de que incluimos la nueva vista de socio en \texttt{\_\_manifest\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro vista de socios, tenemos que agregarlo en \texttt{data} en el archivo \texttt{\_\_manifest\_\_.py}
+justo debajo de la vista de cómics.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.1-REGLAS-ACCESO.png}
+  \caption{Captura donde actualizamos las reglas de acceso donde asignamos los permisos para socios.}
+\end{figure}
+
+\noindent Ahora, definimos las reglas de acceso, permitiendo a todos los usuarios poder ver los socios, pero solo los miembros del \textbf{grupo bibliotecario}
+podrán crear, editar y eliminar los socios.
+
+
+\subsection{Modelo Ejemplares}
+\noindent A continuación vamos a crear el modelo de ejemplares para nuesto módulo, para ello tendremos
+que crear la vista y el modelo además de realizar unas modificaciones para poder emplearlo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.2-AGREGAR-MODELO-EJEMPLAR.png}
+  \caption{Captura del archivo \texttt{biblioteca\_ejemplares.py} donde tenemos el modelo para gestionar los ejemplares.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{biblioteca\_ejemplar.py} y definimos el modelo \texttt{"biblioteca.comic.ejemplar"}. Este modelo nos permite gestionar cada ejemplar de un comic de nuestra biblioteca.
+Cada ejemplar tiene un identificador único, una referencia al cómic al que pertenece, un estado y opcionalmente, un socio al que esta prestado y las fechas de prestamo y devolución.
+
+\vspace{0.5em}
+
+\noindent Los atributos principales del modelo son:
+
+\begin{itemize}
+  \item id\_ejemplar: identificador único para cada ejemplar.
+  \item comic\_name: tenemos una relación \texttt{Many2one} hacia el modelo de cómic, ya que cada ejemplar pertenece a un único cómic.
+  \item socio\_id: tenemos una relación \texttt{Many2one} hacia el modelo de socio, ya que cada ejemplar esta prestado a un socio.
+  \item estado: indica si el ejemplar está disponible o está prestado.
+  \item fecha\_prestamo: fecha en la que se presto el ejemplar.
+  \item fecha\_devolucion: fecha prevista en la que se devolvera el ejemplar.
+\end{itemize}
+
+\noindent Además, usamos una restricción SQL para asegurar que el \texttt{id\_ejemplar} sea único.
+
+\vspace{1em}
+
+\noindent Agregamos las restricciones para las fechas:
+
+\vspace{0.5em}
+
+\noindent Incluimos dos comprobaciones mediante \texttt{@api.constrains}, así si se intenta guardar un ejemplar que incumpla alguna
+de estás reglas que nos salte un error:
+
+\begin{enumerate}
+  \item Que la fecha de préstamo no puede ser posterior al día actual.
+  \item Que la fecha de devolución no puede ser anterior al día actual.
+\end{enumerate}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.2-IMPORTAR-MODELO.png}
+  \caption{Captura de que importamos el nuevo modelo ejemplar en \texttt{models/\_\_init\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro modelo de ejemplar al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}
+como ya teniamos el del modelo de cómic y socio.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.2-AGREGAR-VISTA-EJEMPLAR.png}
+  \caption{Captura del archivo \texttt{biblioteca\_ejemplar.xml} donde tenemos definida la vista para los ejemplares.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{biblioteca\_ejemplar.xml} donde creamos la vista \texttt{ejemplar} para poder gestionar los ejemplares desde una interfaz donde tenemos lo siguiente:
+
+\begin{itemize}
+  \item \textbf{Vista formulario:} Esto nos permite tener un formulario donde podremos crear o editar la información de los ejemplares.
+  \item \textbf{Vista lista:} Esto nos muestra tados los ejemplares en un listado formato tabla con los campos: identificador del ejemplar, nombre del cómic, estado, identificador del socio, fecha del prestamo y de devolución.
+\end{itemize}
+
+\noindent También agregamos la acción y el menú correspondientes para poder acceder al listado de ejemplares desde la interfaz.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.2-AGREGAR-VISTA-MANIFEST.png}
+  \caption{Captura de que incluimos la nueva vista de ejemplar en \texttt{\_\_manifest\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro vista de ejemplares, tenemos que agregarlo en \texttt{data} en el archivo \texttt{\_\_manifest\_\_.py}
+justo debajo de la vista de socios.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.2-REGLAS-ACCESO.png}
+  \caption{Captura donde actualizamos las reglas de acceso donde asignamos los permisos para ejemplares.}
+\end{figure}
+
+\noindent Ahora, definimos las reglas de acceso, permitiendo a todos los usuarios poder ver los ejemplares, pero solo los miembros del \textbf{grupo bibliotecario}
+podrán crear, editar y eliminar los ejemplares.
+
+\subsection{Comprobación de su funcionamiento}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-2/2.3-VISTA-COMICS.png}
+  \caption{En esta captura tenemos la lista con todos los cómics que creamos para nuestra biblioteca.}
+\end{figure}
+
+\noindent Como podemos ver tenemos creados cinco cómics y vemos que se muestra correctamente en el formato lista, ademas podemos ver en el
+menú las opciones cómics, socios y ejemplares, para movernos de modelo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-2/2.3-VISTA-LIST-SOCIOS.png}
+  \caption{En esta captura tenemos la lista con todos los socios que hemos creamos para nuestra biblioteca.}
+\end{figure}
+
+\noindent Como podemos ver estamos en la parte del modulo de socios donde los gestionamos, creamos cinco socios de ejemplos y los mostramos en el formato
+lista correctamente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.3-VISTA-FORM-SOCIOS.png}
+  \caption{En está captura tenemos el formulario para crear y editar los socios.}
+\end{figure}
+
+\noindent Como podemos ver ahora estamos en la pantalla de crear o editar un socio donde podemos ver que tenemos los campos: identificador, nombre y apellido.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-2/2.3-VISTA-LIST-EJEMPLARES.png}
+  \caption{En esta captura tenemos la lista con todos los ejemplares que hemos creamos para nuestra biblioteca.}
+\end{figure}
+
+\noindent Ahora nos encontramos en la parte del modulo de ejemplares donde los gestionamos, he creado 2 ejemplares de ejemplos y los mostramos en el formato
+lista correctamente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-2/2.3-VISTA-FORM-EJEMPLARES.png}
+  \caption{En está captura tenemos el formulario para crear y editar nuestros ejemplares.}
+\end{figure}
+
+\noindent Como podemos ver ahora estamos en la pantalla de crear o editar un ejemplar donde podemos ver que tenemos los campos: identificador del ejemplar, nombre del cómic, estado, a que socio está prestado, en que fecha se presto y cuando se va a devolver.
+
+\vspace{1em}
+
+\noindent Por último vamos a mostrar las comprobaciones de que nuestras restricciones en las fechas en ejemplares están funcionando correctamente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-2/2.3-COMPROBACION-RESTRICCION-1.png}
+  \caption{En está captura comprobamos que la fecha de préstamo no puede ser posterior al día actual.}
+\end{figure}
+
+\noindent Aquí podemos ver como al intentar guardar un nuevo ejemplar con la fecha de prestamo 13/12/2025 nos salta el error ya que el dia en la intentamos registrar el ejemplar era 12/12/2025 y como definimos en la restricción no podemos registrar un inicio de prestamo en un fecha futura.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-2/2.3-COMPROBACION-RESTRICCION-2.png}
+  \caption{En está captura comprobamos que la fecha prevista de devolución no puede ser anterior al día actual.}
+\end{figure}
+
+\noindent Aquí podemos ver como al intentar guardar un nuevo ejemplar con la fecha de devolución 11/12/2025 nos salta el error ya que el dia en la intentamos registrar el ejemplar era 12/12/2025 y como definimos en la restricción no podemos registrar una devolución de prestamo en un fecha ya pasada al día actual.
 
 \section{Actividad 03 - Pacientes y médicos}
 

@@ -21,7 +21,7 @@ services:
     container_name: postgres
     image: postgres:13.22-alpine3.21
     environment:
-      - POSTGRES_DB=postgres # Nombre de la base de datos que se creará al iniciar el contenedor
+      - POSTGRES_DB=0 # Nombre de la base de datos que se creará al iniciar el contenedor
       - POSTGRES_USER=odoo_admin # Usuario para que odoo se conecte a la base de datos
       - POSTGRES_PASSWORD=0d00_4dm1n_s3cr3t_p4ssw0rd # Contraseña del usuario
     volumes:
