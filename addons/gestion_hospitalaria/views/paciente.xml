@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ==================================================
+            ACCIÓN PRINCIPAL DEL MÓDULO
+         ================================================== -->
+    <record id='hospital_paciente_action' model='ir.actions.act_window'>
+        <field name="name">Gestión hospitalaria (Actividad 3)</field>
+        <field name="res_model">paciente</field>
+        <!-- Mostrar los tipos de vista de lista y formulario -->
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ==================================================
+            MENÚ DEL MÓDULO
+         ================================================== -->
+    <menuitem name="Gestión hospitalaria (Actividad 3)" id="hospital_base_menu" />
+    <menuitem name="Pacientes" id="hospital_paciente_menu" parent="hospital_base_menu" action="hospital_paciente_action"/>
+
+    <!-- ==================================================
+            VISTA DE FORMULARIO (form)
+         =================================================== -->
+    <record id="paciente_view_form" model="ir.ui.view">
+        <field name="name">Formulario de paciente</field>
+        <field name="model">paciente</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="id_paciente"/>
+                    <field name="nombre"/>
+                    <field name="apellidos"/>
+                    <field name="sintomas"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- ==================================================
+            VISTA DE LISTA (list)
+        ================================================== -->
+    <record id="paciente_view_list" model="ir.ui.view">
+        <field name="name">Lista de pacientes</field>
+        <field name="model">paciente</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="id_paciente"/>
+                <field name="nombre"/>
+                <field name="apellidos"/>
+                <field name="sintomas"/>
+            </list>
+        </field>
+    </record>
+
+</odoo>

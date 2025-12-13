@@ -7,7 +7,7 @@ class BibliotecaSocio(models.Model):
     _name = "biblioteca.socio"
     # Descripcion del modelo
     _description = "Socio de la bilioteca"
-    # Usamos el id_socio como nobre del socio
+    # Usamos el id_socio como nombre visible del registro
     _rec_name = "id_socio"
 
     # Atributos del modelo: identificador, nombre y apellido
@@ -17,5 +17,5 @@ class BibliotecaSocio(models.Model):
 
     #Constraints de SQL del modelo: el identificador deber ser único
     _sql_constraints = [
-        ("identificador_uniq", "UNIQUE(identificador)", "El identificador debe ser único.")
+        ("identificador_uniq", "UNIQUE(id_socio)", "El identificador del socio debe ser único.")
     ]

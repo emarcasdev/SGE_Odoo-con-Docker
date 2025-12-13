@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================================================
+            ACCIÓN PRINCIPAL DEL MÓDULO
+         ================================================== -->
+    <record id="hospital_medico_action" model="ir.actions.act_window">
+        <field name="name">Médicos</field>
+        <field name="res_model">medico</field>
+        <!-- Mostrar los tipos de vista de kanban y formulario -->
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+    <!-- ==================================================
+            MENÚ DEL MÓDULO
+         ================================================== -->
+    <menuitem name="Médicos" id="hospital_medico_menu" parent="hospital_base_menu" action="hospital_medico_action"/>
+
+    <!-- ==================================================
+            VISTA DE FORMULARIO (form)
+         =================================================== -->
+    <record id="medico_view_form" model="ir.ui.view">
+       <field name="name">Formulario de médico</field>
+        <field name="model">medico</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="num_colegiado"/>
+                    <field name="nombre"/>
+                    <field name="apellidos"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- ==================================================
+         VISTA DE KANBAN
+         ================================================== -->
+    <record id="medico_view_kanban" model="ir.ui.view">
+      <field name="name">Lista de médicos</field>
+      <field name="model">medico</field>
+      <field name="arch" type="xml">
+        <!-- Vista tipo kanban -->
+        <kanban default_order_by="num_colegiado">
+          <field name="num_colegiado"/>
+          <field name="nombre"/>
+          <field name="apellidos"/>
+
+          <templates>
+            <!-- Tarjeta de las tareas de kanban -->
+            <t t-name="kanban-box">
+              <div class="oe_kanban_card oe_kanban_global_click">
+                <strong>Doctor/a: <field name="nombre_completo"/></strong>
+                <div>
+                  <div>Número de colegiado: <field name="num_colegiado"/></div>
+                  <div>Nombre: <field name="nombre"/></div>
+                  <div>Apellidos: <field name="apellidos"/></div>
+                </div>
+              </div>
+            </t>
+          </templates>
+        </kanban>
+      </field>
+    </record>
+
+</odoo>

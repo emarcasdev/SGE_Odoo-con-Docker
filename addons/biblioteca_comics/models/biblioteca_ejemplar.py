@@ -9,7 +9,7 @@ class BibliotecaComicEjemplar(models.Model):
     _name = "biblioteca.comic.ejemplar"
     # Descripcion del modelo
     _description = "Ejemplar del cómic"
-    # Usamos el identificador como nobre del socio
+    # Usamos el id_ejemplar como nombre visible del registro
     _rec_name = "id_ejemplar"
 
     # Identificador único para el ejemplar

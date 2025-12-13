@@ -269,7 +269,7 @@ los socios de la biblioteca de cómics. Cada socio tiene un identificador único
   \caption{Captura de que importamos el nuevo modelo socio en \texttt{models/\_\_init\_\_.py}.}
 \end{figure}
 
-\noindent Para que Odoo cargue nuestro modelo de socios al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}
+\noindent Para que Odoo cargue nuestro modelo socios al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}
 como ya teniamos el del modelo de cómic.
 
 \begin{figure}[H]
@@ -282,10 +282,10 @@ como ya teniamos el del modelo de cómic.
 
 \begin{itemize}
   \item \textbf{Vista formulario:} Esto nos permite tener un formulario donde podremos crear o editar la información de los socios.
-  \item \textbf{Vista lista:} Esto nos muestra tados los socios en un listado formato tabla con los campos: identificador, nombre y apellido.
+  \item \textbf{Vista lista:} Esto nos muestra todos los socios en un listado formato tabla con los campos: identificador, nombre y apellido.
 \end{itemize}
 
-\noindent También agregamos la acción y el menú correspondientes para poder acceder al listado de socios desde la interfaz.
+\noindent También agregamos la acción y el menú correspondientes para poder acceder a la vista de socios desde la interfaz.
 
 \begin{figure}[H]
   \centering
@@ -293,7 +293,7 @@ como ya teniamos el del modelo de cómic.
   \caption{Captura de que incluimos la nueva vista de socio en \texttt{\_\_manifest\_\_.py}.}
 \end{figure}
 
-\noindent Para que Odoo cargue nuestro vista de socios, tenemos que agregarlo en \texttt{data} en el archivo \texttt{\_\_manifest\_\_.py}
+\noindent Para que Odoo cargue nuestro vista de socios, tenemos que agregarlo dentro de \texttt{data} en el \texttt{\_\_manifest\_\_.py}
 justo debajo de la vista de cómics.
 
 \begin{figure}[H]
@@ -354,7 +354,7 @@ de estás reglas que nos salte un error:
   \caption{Captura de que importamos el nuevo modelo ejemplar en \texttt{models/\_\_init\_\_.py}.}
 \end{figure}
 
-\noindent Para que Odoo cargue nuestro modelo de ejemplar al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}
+\noindent Para que Odoo cargue nuestro modelo ejemplar al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}
 como ya teniamos el del modelo de cómic y socio.
 
 \begin{figure}[H]
@@ -367,10 +367,10 @@ como ya teniamos el del modelo de cómic y socio.
 
 \begin{itemize}
   \item \textbf{Vista formulario:} Esto nos permite tener un formulario donde podremos crear o editar la información de los ejemplares.
-  \item \textbf{Vista lista:} Esto nos muestra tados los ejemplares en un listado formato tabla con los campos: identificador del ejemplar, nombre del cómic, estado, identificador del socio, fecha del prestamo y de devolución.
+  \item \textbf{Vista lista:} Esto nos muestra todos los ejemplares en un listado formato tabla con los campos: identificador del ejemplar, nombre del cómic, estado, identificador del socio, fecha del prestamo y de devolución.
 \end{itemize}
 
-\noindent También agregamos la acción y el menú correspondientes para poder acceder al listado de ejemplares desde la interfaz.
+\noindent También agregamos la acción y el menú correspondientes para poder acceder a la vista de ejemplares desde la interfaz.
 
 \begin{figure}[H]
   \centering
@@ -378,7 +378,7 @@ como ya teniamos el del modelo de cómic y socio.
   \caption{Captura de que incluimos la nueva vista de ejemplar en \texttt{\_\_manifest\_\_.py}.}
 \end{figure}
 
-\noindent Para que Odoo cargue nuestro vista de ejemplares, tenemos que agregarlo en \texttt{data} en el archivo \texttt{\_\_manifest\_\_.py}
+\noindent Para que Odoo cargue nuestro vista de ejemplares, tenemos que agregarlo dentro de \texttt{data} en el \texttt{\_\_manifest\_\_.py}
 justo debajo de la vista de socios.
 
 \begin{figure}[H]
@@ -456,6 +456,323 @@ lista correctamente.
 \noindent Aquí podemos ver como al intentar guardar un nuevo ejemplar con la fecha de devolución 11/12/2025 nos salta el error ya que el dia en la intentamos registrar el ejemplar era 12/12/2025 y como definimos en la restricción no podemos registrar una devolución de prestamo en un fecha ya pasada al día actual.
 
 \section{Actividad 03 - Pacientes y médicos}
+
+\subsection{Objetivo}
+\noindent Para esta actividad tendremos que crear un módulo para gestionar los pacientes y médicos de un hospital, teniendo también un registro de las consultas. Para ello deberemos de crear los modelos para almacenar los datos de los médicos, pacientes y de las consultas, donde registramos
+cada vez que un médico atiente a un paciente incluyendo el diagnostico dado por el médico.
+
+\vspace{1em}
+\noindent \underline{RECORDATORIO:}
+
+\vspace{0.5em}
+
+\noindent Para poder crear la estructura básica de un módulo, usaremos el comando \textbf{scaffold} a continuación mostraré los pasos a seguir:
+
+\vspace{0.5em}
+
+\noindent Comando para entrar en nuestro contenedor de docker
+
+\begin{lstlisting}[style=bash]
+  docker exec -it <CONTAINER> bash
+\end{lstlisting}
+
+\vspace{0.5em}
+
+\noindent Comando para crear la estructura de nuestro módulo
+
+\begin{lstlisting}[style=bash]
+  odoo scaffold <MODULO_NAME> /mnt/extra-addons
+\end{lstlisting}
+
+\clearpage{}
+
+\subsection{Modelo Paciente}
+
+\noindent A continuación vamos a crear el modelo de pacientes donde almacenaremos los datos de los pacientes, para ello
+tendremos que crear la vista y su modelo además de referenciar el nuevo modelo en el \texttt{\_\_init\_\_.py} de models y la vista en nuestro
+\texttt{\_\_manifest\_\_.py}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.1-AGREGAR-MODELO-PACIENTE.png}
+  \caption{Captura del archivo \texttt{paciente.py} donde tenemos el modelo para gestionar a los pacientes del hospital.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{paciente.py} y definimos el modelo \texttt{"paciente"}. Este modelo nos permite gestionar los pacientes del hospital.
+Cada paciente cuenta con un un identificador único, sus datos personales y los síntomas que padece. Además contamos con un helper para poder recuperar su nombre
+completo y facilitar la visualización.
+
+\vspace{0.5em}
+
+\noindent Los atributos principales del modelo son:
+
+\begin{itemize}
+  \item id\_paciente: identificador único para cada paciente.
+  \item nombre: nombre del paciente.
+  \item apellidos: apellidos del paciente.
+  \item sintomas: descripción de los síntomas del paciente.
+  \item nombre\_completo: combina el nombre + apellidos para obtener el nombre completo.
+\end{itemize}
+
+\noindent Además, usamos una restricción SQL para asegurar que el \texttt{id\_paciente} sea único.
+
+\clearpage{}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\linewidth]{EJERCICIO-3/3.1-IMPORTAR-MODELO.png}
+  \caption{Captura de que importamos el nuevo modelo paciente en \texttt{models/\_\_init\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro modelo paciente al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.1-AGREGAR-VISTA-PACIENTE.png}
+  \caption{Captura del archivo \texttt{paciente.xml} donde tenemos definida la vista para los pacientes del hospital.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{paciente.xml} donde creamos la vista \texttt{paciente} para poder gestionar los pacientes desde una interfaz donde tenemos lo siguiente:
+
+\begin{itemize}
+  \item \textbf{Vista formulario:} Esto nos permite tener un formulario donde podremos crear o editar la información de los pacientes.
+  \item \textbf{Vista lista:} Esto nos muestra todos los pacientes en un listado formato tabla con los campos: identificador del paciente, nombre, apellidos y síntomas.
+\end{itemize}
+
+\noindent También agregamos la acción y el menú correspondientes para poder acceder a la vista de pacientes desde la interfaz.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{EJERCICIO-3/3.1-AGREGAR-VISTA-MANIFEST.png}
+  \caption{Captura de que incluimos la nueva vista de paciente en \texttt{\_\_manifest\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro vista de pacientes, tenemos que agregarlo dentro de \texttt{data} en el \texttt{\_\_manifest\_\_.py}.
+
+\subsection{Modelo Médico}
+\noindent A continuación vamos a crear el modelo de médicos donde almacenaremos los datos de los médicos, para ello
+tendremos que crear la vista y su modelo además de referenciar el nuevo modelo en el \texttt{\_\_init\_\_.py} de models y la vista en nuestro
+\texttt{\_\_manifest\_\_.py}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.1-AGREGAR-MODELO-PACIENTE.png}
+  \caption{Captura del archivo \texttt{medico.py} donde tenemos el modelo para gestionar a los médicos del hospital.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{medico.py} y definimos el modelo \texttt{"medico"}. Este modelo nos permite almacenar la información de los médicos del hospital.
+Cada médico cuenta con un un número de colegiado único, además de su nombre y apellidos. Y como hacemos en el modelo de paciente, contamos con un helper para poder recuperar su nombre
+completo y facilitar la visualización.
+
+\clearpage{}
+
+\noindent Los atributos principales del modelo son:
+
+\begin{itemize}
+  \item num\_colegiado: número de colegiado del médico, que se usa como su identificador.
+  \item nombre: nombre del médico.
+  \item apellidos: apellidos del médico.
+  \item nombre\_completo: combina el nombre + apellidos para obtener el nombre completo.
+\end{itemize}
+
+\noindent Además, usamos una restricción SQL para asegurar que el \texttt{num\_colegiado} sea único.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\linewidth]{EJERCICIO-3/3.1-IMPORTAR-MODELO.png}
+  \caption{Captura de que importamos el nuevo modelo médico en \texttt{models/\_\_init\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro modelo médico al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}
+como ya teniamos el de paciente.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.1-AGREGAR-VISTA-PACIENTE.png}
+  \caption{Captura del archivo \texttt{medico.xml} donde tenemos definida la vista para los médicos del hospital.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{medico.xml} donde creamos la vista \texttt{medico} para poder gestionar los médicos desde una interfaz donde tenemos lo siguiente:
+
+\begin{itemize}
+  \item \textbf{Vista formulario:} Esto nos permite tener un formulario donde podremos crear o editar la información de los médicos.
+  \item \textbf{Vista kanban:} Esto nos muestra a los médicos en formato de tarjetas, facilitando la visualización de estos, y mostramos su número de colegiado, nombre y apellidos.
+\end{itemize}
+
+\noindent También agregamos la acción y el menú correspondientes para poder acceder a la vista de médicos desde la interfaz.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{EJERCICIO-3/3.2-AGREGAR-VISTA-MANIFEST.png}
+  \caption{Captura de que incluimos la nueva vista de médico en \texttt{\_\_manifest\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro vista de médicos, tenemos que agregarlo dentro de \texttt{data} en el \texttt{\_\_manifest\_\_.py}
+justo debajo de la vista de paciente.
+
+\clearpage{}
+
+\subsection{Modelo Consulta}
+\noindent A continuación vamos a crear el modelo para las consultas que registrará cada vez que un médico atiende a un paciente, para ello
+tendremos que crear la vista y su modelo además de referenciar el nuevo modelo en el \texttt{\_\_init\_\_.py} de models y la vista en nuestro
+\texttt{\_\_manifest\_\_.py}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.3-AGREGAR-MODELO-CONSULTA.png}
+  \caption{Captura del archivo \texttt{consulta.py} donde tenemos el modelo para gestionar a las cosultas médicas.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{consulta.py} y definimos el modelo \texttt{``consulta"}. Este modelo nos permite almacenar la información de cada consulta realizada.
+Cada consulta tiene un identificador único, y relaciona un médico con un paciente, registrando además el diagnóstico y la fecha de la cita.
+
+\vspace{0.5em}
+
+\noindent Los atributos principales del modelo son:
+
+\begin{itemize}
+  \item id\_consulta: identificador único de la consulta.
+  \item medico\_id: indica que médico hace la consulta, y tenemos una relación \texttt{Many2one}, ya que cada médico puede atender varios pacientes.
+  \item paciente\_id: indica el paciente atendido, y tenemos una relación \texttt{Many2one}, ya que cada paciente puede haber sido atendido por varios médicos.
+  \item diagnostico: diagnóstico emitido por el médico.
+  \item fecha\_cita: fecha en la que se realiza la consulta médica.
+\end{itemize}
+
+\noindent Además, usamos una restricción SQL para asegurar que el \texttt{id\_consulta} sea único.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\linewidth]{EJERCICIO-3/3.3-IMPORTAR-MODELO.png}
+  \caption{Captura de que importamos el nuevo modelo consulta en \texttt{models/\_\_init\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro modelo consulta al iniciar el módulo, importamos el modelo en el archivo \texttt{models/\_\_init\_\_.py}
+como ya teniamos el del modelo de paciente y médico.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.3-AGREGAR-VISTA-CONSULTA.png}
+  \caption{Captura del archivo \texttt{consulta.xml} donde tenemos definida la vista para las consultas médicas.}
+\end{figure}
+
+\noindent Creamos el archivo \texttt{consulta.xml} donde creamos la vista \texttt{consulta} para poder gestionar las consultas desde una interfaz donde tenemos lo siguiente:
+
+\begin{itemize}
+  \item \textbf{Vista formulario:} Esto nos permite tener un formulario donde podremos crear o editar la información de las consultas.
+  \item \textbf{Vista lista:} Esto nos muestra todas las consultas en un listado formato tabla con los campos: identificador de la consulta, médico que atendio, paciente atendido, diagnóstico y fecha de la cita.
+  \item \textbf{Vista calendario:} Esto nos muestra todas las consultas en un calendario en la fecha en la que fue y nos permite visualizar mejor las citas médicas porque es como habitualmente estamos acostumbrados a verlas.
+\end{itemize}
+
+\noindent También agregamos la acción y el menú correspondientes para poder acceder a la vista de consultas desde la interfaz.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\linewidth]{EJERCICIO-3/3.3-AGREGAR-VISTA-MANIFEST.png}
+  \caption{Captura de que incluimos la nueva vista de consulta en \texttt{\_\_manifest\_\_.py}.}
+\end{figure}
+
+\noindent Para que Odoo cargue nuestro vista de consulta, tenemos que agregarlo dentro de \texttt{data} en el \texttt{\_\_manifest\_\_.py}
+justo debajo de la vista de paciente y medico.
+
+\subsection{Comprobación de su funcionamiento}
+
+\noindent Antes de mostrar el funcionamiento vamos a mostrar el error que nos sucedio antes de poder probarlo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.4\linewidth]{EJERCICIO-3/ERROR-FALTA-PERMISOS.png}
+  \caption{Captura de que no nos mostraba nuestro módulo \textbf{Gestión hospitalaria (Actividad 3)}.}
+\end{figure}
+
+\noindent Después de haber instalado nuestro módulo \textbf{gestión hospitalaria} no dirigimos al menú para entrar al módulo y no nos salía en el menú, esto nos pasaba porque
+no teníamos permisos, en el módulo anterior no tuvimos es problema porque al tener el permiso del modelo comics lo replicamos para ejemplares y socios. Pero en este modulo no
+los pusimos y por eso no se nos mostraba. A continuación las modificaciones realizadas para arreglarlo:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{EJERCICIO-3/SOULUCCION-ACTUALIZAR-MANIFEST.png}
+  \caption{Habilitamos el \texttt{'security/ir.model.access.csv'} del data.}
+\end{figure}
+
+\noindent Lo primero va a ser volver a nuestro \texttt{\_\_manifest\_\_.py} y en la parte de \textbf{data} teniamos comentado
+el archivo \texttt{'security/ir.model.access.csv'} lo descomentamos y ahora si nos iremos a modificar los permisos para poder ver nuesto módulo en Odoo.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/SOULUCCION-REGLAS-ACCESO.png}
+  \caption{Actualizamos las reglas de acceso donde asignamos los permisos a los modelos.}
+\end{figure}
+
+\noindent Ahora en el \texttt{'security/ir.model.access.csv'} agregamos las reglas para permitir a los usuarios puedan \texttt{leer}, \texttt{crear}, \texttt{modificar}, \texttt{eliminar} los registros de 
+\textbf{pacientes}, \textbf{médicos} y \textbf{consultas}. Permitiendonos así poder acceder y ver en el menú el módulo que creamos.
+
+\vspace{1em}
+
+\noindent Con este pequeño error que nos dío solventado, vamos a enseñar el resultado de nuestro módulo de gestión hospital:
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-3/3.4-VISTA-LIST-PACIENTES.png}
+  \caption{En esta captura tenemos la lista con todos los pacientes que creamos para nuestro módulo de gestión hospitalaria.}
+\end{figure}
+
+\noindent Como podemos apreciar en la captura estamos en la vista de pacientes donde tenemos tres pacientes, y vemos que los mostramos correctamente en el formato lista, ya que un
+hospital tiene muchos pacientes y el formato lista en mi opión no resulta muy útil, en la parte del menu tenemos las otras vistas de nuestro módulo
+que son médicos y consultas para poder movernos de vista.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.4-VISTA-FORM-PACIENTES.png}
+  \caption{En está captura tenemos el formulario para crear y editar los pacientes.}
+\end{figure}
+
+\noindent Como podemos ver ahora estamos en la vista de formulario de pacientes donde creamos o editamos un paciente y donde podemos ver que tenemos
+los campos: identificador, nombre, apellidos y los síntomas.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-3/3.4-VISTA-KANBAN-MEDICOS.png}
+  \caption{En esta captura mostramos los médicos que creamos para nuestro módulo en formato de tarjetas (kanban).}
+\end{figure}
+
+\noindent Esta es la vista de médicos donde mostramos los dos que creamos, y se visualizan en formato kanban ya que proporcionalmente hay muchos menos médicos que pacientes, me parecio
+mejor usar la vista kanban ya que mostraremos los médicos en tarjetas y visualmente se ve mejor.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.4-VISTA-FORM-MEDICOS.png}
+  \caption{En está captura tenemos el formulario para crear y editar los médicos.}
+\end{figure}
+
+\noindent Como podemos ver ahora estamos en la vista de formulario de médicos donde creamos o editamos un médico y donde podemos ver que tenemos
+los campos: número de colegiado, nombre y apellidos.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-3/3.4-VISTA-LIST-CONSULTAS.png}
+  \caption{En esta captura tenemos la lista con todas las consultas que creamos en el módulo.}
+\end{figure}
+
+\noindent Esta es la vista de consultas donde mostramos los tres consultas que creamos, y se visualiza en formato lista y tambien en calendario ya que un hospital o un centro de salud
+se producen muchas citas y poder verlas en lista y en formato calendario nos facilita la visualización. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\linewidth]{EJERCICIO-3/3.4-VISTA-FORM-CONSULTAS.png}
+  \caption{En está captura tenemos el formulario para crear y editar las consultas médicas.}
+\end{figure}
+
+\noindent Como podemos ver ahora estamos en la vista de formulario de consultas donde creamos o editamos una consulta y donde podemos ver que tenemos
+los campos: identificador, médico que atiente, paciente, el diagnóstico y la fecha de la cita.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\linewidth]{EJERCICIO-3/3.4-VISTA-CALENDAR-CONSULTAS.png}
+  \caption{Aquí se ve la vista en formato calendario para ver en que día fue la consulta.}
+\end{figure}
+
+\noindent Aquí podemos ver la vista en formato calendario para mostrar las consultas, está la agregué adicionalmente porque se hace muy visual ver las citas en un calendario
+además de emplear el campo agregado adicionalmente \texttt{fecha\_cita} que nos permite poder ver las consultas en este modo de visualización.
 
 \section{Actividad 04 - Ciclos formativos}
 

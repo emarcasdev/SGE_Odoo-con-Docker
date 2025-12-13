@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ==================================================
+            ACCIÓN PRINCIPAL DEL MÓDULO
+         ================================================== -->
+    <record id="hospital_consulta_action" model="ir.actions.act_window">
+        <field name="name">Consultas</field>
+        <field name="res_model">consulta</field>
+        <!-- Mostrar los tipos de vista de lista, calendario y formulario -->
+        <field name="view_mode">list,calendar,form</field>
+    </record>
+
+    <!-- ==================================================
+            MENÚ DEL MÓDULO
+         ================================================== -->
+    <menuitem name="Consultas" id="hospital_consulta_menu" parent="hospital_base_menu" action="hospital_consulta_action"/>
+
+    <!-- ==================================================
+            VISTA DE FORMULARIO (form)
+         =================================================== -->
+    <record id="consulta_view_form" model="ir.ui.view">
+       <field name="name">Formulario de consultas</field>
+        <field name="model">consulta</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="id_consulta"/>
+                    <field name="medico_id"/>
+                    <field name="paciente_id"/>
+                    <field name="diagnostico"/>
+                    <field name="fecha_cita"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- ==================================================
+            VISTA DE LISTA (list)
+        ================================================== -->
+    <record id="consulta_view_list" model="ir.ui.view">
+        <field name="name">Lista de las consultas</field>
+        <field name="model">consulta</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="id_consulta"/>
+                <field name="medico_id"/>
+                <field name="paciente_id"/>
+                <field name="diagnostico"/>
+                <field name="fecha_cita"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ==================================================
+         VISTA DE CALENDARIO
+         ================================================== -->
+    <record id="consulta_view_calendar" model="ir.ui.view">
+      <field name="name">Consultas en calendario</field>
+      <field name="model">consulta</field>
+      <field name="arch" type="xml">
+        <!-- Vista tipo calendar -->
+        <calendar date_start="fecha_cita" date_stop="fecha_cita">
+          <field name="id_consulta"/>
+          <field name="medico_id"/>
+          <field name="paciente_id"/>
+          <field name="diagnostico"/>
+        </calendar>
+      </field>
+    </record>
+
+</odoo>
